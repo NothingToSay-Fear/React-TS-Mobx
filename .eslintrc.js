@@ -26,6 +26,7 @@ module.exports = {
     rules: {
         "no-var": 1,// 不能使用 var 定义变量,
         "@typescript-eslint/no-unused-vars": 0,
+        "react-hooks/exhaustive-deps": 0
     },
     overrides: [
         {

@@ -1,20 +1,25 @@
 import { FC, useCallback, useState } from 'react'
+import useMobxStore from './mobx/useMobxStore';
+import { observer } from 'mobx-react';
 
 
-const ABC: FC = () => {
+
+const ABC: FC = observer(() => {
+
+  const token = useMobxStore('token')
 
   const [count, setCount] = useState(0);
 
-  const aaa = useCallback(() => {
+  const ccc = useCallback(() => {
     setCount((count) => count + 1)
   }, [])
 
   return (
     <>
-      <div>{count}</div>
-      <button onClick={aaa}>+1</button>
+      <div>{count + token}</div>
+      <button onClick={ccc}>+1</button>
     </>
 
   )
-}
+})
 export default ABC
