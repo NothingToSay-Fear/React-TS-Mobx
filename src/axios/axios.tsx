@@ -1,17 +1,34 @@
 
-import Axios, { AxiosError, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import Axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { observer } from 'mobx-react'
 import { ChildrenProps } from '../common/commonType'
 import { useCallback, useEffect } from 'react'
 import useMobxStore from '../mobx/useMobxStore'
+import { devBaseURL, prodBaseURL } from './config'
+import { CustomConfigType, NewRequest } from './request'
 
 
 export const axios = Axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.NODE_ENV === 'production' ? prodBaseURL : devBaseURL,
   timeout: 30000
 })
 
+const axiosConfig: AxiosRequestConfig = {
+  baseURL: process.env.NODE_ENV === 'production' ? prodBaseURL : devBaseURL,
+  timeout: 30000
+}
 
+const customConfig: CustomConfigType = {
+
+}
+
+
+export const newRequest = new NewRequest(axiosConfig, customConfig)
+
+
+
+
+//这里做一些初始化的
 export const AxiosInject: React.FC<ChildrenProps> = observer(({ children }) => {
 
   const token = useMobxStore('token')
@@ -63,17 +80,17 @@ export const AxiosInject: React.FC<ChildrenProps> = observer(({ children }) => {
 
   useEffect(() => {
     // 添加请求拦截器
-    const interceptorId = axios.interceptors.request.use(requestInterceptor)
+    const interceptorId = newRequest.instance.interceptorsRequest(requestInterceptor)
     // 拦截器优化绑定，仅绑定一个拦截器
-    interceptorId > 0 && axios.interceptors.request.eject(interceptorId - 1)
+    interceptorId > 0 && newRequest.instance.interceptorsRequestEject(interceptorId - 1)
   }, [requestInterceptor])
 
 
   useEffect(() => {
     // 添加请求拦截器
-    const interceptorId = axios.interceptors.response.use(responseInterceptor, responseInterceptorReject)
+    const interceptorId = newRequest.instance.interceptorsRespose(responseInterceptor, responseInterceptorReject)
     // 拦截器优化绑定，仅绑定一个拦截器
-    interceptorId > 0 && axios.interceptors.response.eject(interceptorId - 1)
+    interceptorId > 0 && newRequest.instance.interceptorsResponseEject(interceptorId - 1)
   }, [responseInterceptor])
 
 

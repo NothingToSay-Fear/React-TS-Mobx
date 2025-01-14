@@ -5,7 +5,7 @@ import './index.css';
 import { changeToken } from './mobx/actions';
 import { observer } from 'mobx-react';
 import MobxConnection from './mobx/mobx.hoc';
-import { axios, AxiosInject } from './axios/axios';
+import { axios, AxiosInject, newRequest } from './axios/axios';
 
 
 
@@ -20,8 +20,18 @@ const App: FC = observer(() => {
   }
 
   useEffect(() => {
-    axios.get('/').then(res => {
-      console.log(res)
+    // axios.get('/').then(res => {
+    //   console.log(res)
+    // })
+
+    newRequest.get({ url: '/' }, { isNeedLoading: true }).then(res => {
+      console.log('res', res)
+    })
+    newRequest.get({ url: '/' }, { isNeedLoading: true }).then(res => {
+      console.log('res', res)
+    })
+    newRequest.get({ url: '/' }, { isNeedLoading: true }).then(res => {
+      console.log('res', res)
     })
   }, [])
 

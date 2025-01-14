@@ -321,7 +321,7 @@ module.exports = {
         compress: true,   //启用gizp压缩
         historyApiFallback: true,
         client: {
-            overlay: true   //当出现编译错误或警告时，在浏览器中显示全屏覆盖
+            overlay: false   //当出现编译错误或警告时，在浏览器中显示全屏覆盖
         }
     },
     // performance属性会在文件打包之后对一些大于一定大小的包发出警告导致打包失败，这里设置false禁用掉这个警告
