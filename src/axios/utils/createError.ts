@@ -1,15 +1,15 @@
-import { AxiosError, AxiosRequestConfig } from 'axios'
+import { AxiosError, AxiosRequestConfig } from "axios";
 
-
-type NewAxiosError = Omit<AxiosError, "config"> & { config: AxiosRequestConfig }
-
+type NewAxiosError = Omit<AxiosError, "config"> & {
+  config: AxiosRequestConfig;
+};
 
 export const createError = (
   message: string,
-  config: AxiosRequestConfig
+  config: AxiosRequestConfig,
 ): NewAxiosError => {
   return {
-    name: 'custom error',
+    name: "custom error",
     message,
     config,
     isAxiosError: false,
@@ -17,5 +17,5 @@ export const createError = (
       message,
       config,
     }),
-  }
-}
+  };
+};

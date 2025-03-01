@@ -214,7 +214,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             // 以 public/index.html 为模板创建文件
             // 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
-            template: path.resolve(__dirname, "public/index.html"),
+            template: path.resolve(__dirname, "public/index.html")
         }),
         isEnvDevelopment && new ReactRefreshWebpackPlugin(), // 解决js的HMR功能运行时全局变量的问题
         new PreloadWebpackPlugin({
@@ -222,7 +222,7 @@ module.exports = {
             //Preload只能加载当前页面需要使用的资源，Prefetch可以加载当前页面资源，也可以加载下一个页面需要使用的资源
             //两者都有浏览器兼容性问题,Preload 相对于 Prefetch 兼容性好一点
             rel: 'preload',
-            as: "script"
+            include: 'initial',
         }),
         // 提取css成单独文件
         isEnvProduction &&
@@ -268,24 +268,39 @@ module.exports = {
             new TerserPlugin({
                 parallel: threads // 开启多进程
             }),
-            isEnvProduction && new ImageMinimizerPlugin({
+            //有需要压缩图片的场景可以在生产环境使用,并非必须
+            false && new ImageMinimizerPlugin({
                 minimizer: {
                     implementation: ImageMinimizerPlugin.imageminMinify,
                     options: {
-                        encodeOptions: {
-                            mozjpeg: {
-                                // That setting might be close to lossless, but it’s not guaranteed
-                                // https://github.com/GoogleChromeLabs/squoosh/issues/85
-                                quality: 100,
-                            },
-                            webp: {
-                                lossless: 1,
-                            },
-                            avif: {
-                                // https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
-                                cqLevel: 0,
-                            },
-                        },
+                        plugins: [
+                            ["gifsicle", { interlaced: true }],
+                            ["jpegtran", { progressive: true }],
+                            ["optipng", { optimizationLevel: 5 }],
+                            // Svgo configuration here https://github.com/svg/svgo#configuration
+                            [
+                                "svgo",
+                                {
+                                    plugins: [
+                                        {
+                                            name: "preset-default",
+                                            params: {
+                                                overrides: {
+                                                    removeViewBox: false,
+                                                    addAttributesToSVGElement: {
+                                                        params: {
+                                                            attributes: [
+                                                                { xmlns: "http://www.w3.org/2000/svg" },
+                                                            ],
+                                                        },
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        ],
                     },
                 },
             })

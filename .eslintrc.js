@@ -5,7 +5,11 @@ module.exports = {
     // // import:解决动态导入import语法报错问题 --> 实际使用eslint-plugin-import的规则解决的
     // plugins: ["@typescript-eslint", "import"], 
     // // 继承 Eslint 规则
-    extends: ["react-app"], // 继承 react 官方规则
+    extends: [
+        "react-app", // 继承 react 官方规则
+        'prettier',  // prettier相关配置
+        'plugin:prettier/recommended'
+    ],
     parserOptions: {
         babelOptions: {
             presets: [
