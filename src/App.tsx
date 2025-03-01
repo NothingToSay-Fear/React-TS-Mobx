@@ -9,7 +9,7 @@ import { newRequest } from "./axios/axios";
 import img1 from "./1.jpg";
 
 const App: FC = observer(() => {
-  var a = 12
+  var a = 123
   const [count, setCount] = useState(0);
   const add = () => {
     setCount((count) => count + 1);
