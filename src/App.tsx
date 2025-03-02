@@ -5,10 +5,11 @@ import "./index.css";
 import { changeToken } from "./mobx/actions";
 import { observer } from "mobx-react";
 import { newRequest } from "./axios/axios";
-// import img from './1.png';
+import img from "./1.png";
 import img1 from "./1.jpg";
 
 const App: FC = observer(() => {
+  var a = 1;
   const [count, setCount] = useState(0);
   const add = () => {
     setCount((count) => count + 1);
