@@ -1,12 +1,12 @@
-import { AxiosHeaders, AxiosRequestConfig } from "axios";
+import { AxiosHeaders, AxiosRequestConfig } from 'axios'
 
 export const handleToken = (
   config: AxiosRequestConfig,
-  setToken: (config: AxiosRequestConfig) => void,
+  setToken: (config: AxiosRequestConfig) => void
 ) => {
-  config.headers = { ...(config.headers || {}) };
+  config.headers = { ...(config.headers || {}) }
 
-  if (setToken) return setToken(config);
+  if (setToken) return setToken(config)
 
-  config.headers.token = (window as any).token;
-};
+  config.headers.token = (window as any).token
+}

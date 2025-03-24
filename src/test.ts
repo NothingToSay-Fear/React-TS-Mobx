@@ -1,16 +1,16 @@
 type A = {
-  name: string;
-};
+  name: string
+}
 
 type B = {
-  age: number;
-};
+  age: number
+}
 
-type AB = A & B;
+type AB = A & B
 
 const obj: AB = {
-  name: "1",
-  age: 1,
-};
+  name: '1',
+  age: 1
+}
 
-let bbb: number = 1;
+let bbb: number = 1

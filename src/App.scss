@@ -1,0 +1,43 @@
+.logo-vertical {
+  height: 64px;
+  padding: 5px;
+
+  .text {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    background-color: #fff;
+    position: relative;
+    padding-left: 56px;
+    border-radius: 28px;
+
+    &:hover {
+      .logo {
+        animation: rotate 1s linear alternate infinite;
+      }
+    }
+
+    .logo {
+      width: 54px;
+      height: 54px;
+      background-image: url(./image/logo.png);
+      background-size: 100% 100%;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: translateX(0px) rotate(0deg);
+    }
+
+    100% {
+      transform: translateX(134px) rotate(900deg);
+    }
+  }
+}

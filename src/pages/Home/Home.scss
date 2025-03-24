@@ -1,0 +1,13 @@
+.Home_container {
+  height: 100%;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+
+  .Home_top {
+    flex: 0 0 30px;
+  }
+  .Home_table {
+    flex: 1;
+  }
+}

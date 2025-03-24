@@ -3,49 +3,49 @@ import Axios, {
   AxiosInterceptorOptions,
   AxiosRequestConfig,
   AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+  InternalAxiosRequestConfig
+} from 'axios'
 
 export type RequestInterceptorFulfilled =
   | ((
-      value: InternalAxiosRequestConfig,
+      value: InternalAxiosRequestConfig
     ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>)
-  | null;
+  | null
 
 export type ResponseInterceptorFulfilled =
   | ((value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>)
-  | null;
+  | null
 
-export type InterceptorRejected = (error: any) => any | null;
+export type InterceptorRejected = (error: any) => any | null
 
-export type RequestInterceptorOptions = AxiosInterceptorOptions;
+export type RequestInterceptorOptions = AxiosInterceptorOptions
 
 export class Instance {
-  axiosInstance: AxiosInstance;
+  axiosInstance: AxiosInstance
 
   constructor(config?: AxiosRequestConfig) {
     //初始化
-    this.axiosInstance = Axios.create(config);
-    this.interceptorsRequest();
-    this.interceptorsRespose();
+    this.axiosInstance = Axios.create(config)
+    this.interceptorsRequest()
+    this.interceptorsRespose()
   }
 
   //创建实例
   createdInstance(config?: AxiosRequestConfig) {
-    return Axios.create(config);
+    return Axios.create(config)
   }
 
   // 添加请求拦截器
   interceptorsRequest(
     onFulfilled?: RequestInterceptorFulfilled,
     onRejected?: InterceptorRejected,
-    options?: RequestInterceptorOptions,
+    options?: RequestInterceptorOptions
   ) {
     return this.axiosInstance.interceptors.request.use(
       onFulfilled,
       onRejected,
-      options,
-    );
+      options
+    )
   }
 
   // 添加响应拦截器
@@ -53,19 +53,16 @@ export class Instance {
   // 超出 2xx 范围的状态码都会触发onRejected函数。
   interceptorsRespose(
     onFulfilled?: ResponseInterceptorFulfilled,
-    onRejected?: InterceptorRejected,
+    onRejected?: InterceptorRejected
   ) {
-    return this.axiosInstance.interceptors.response.use(
-      onFulfilled,
-      onRejected,
-    );
+    return this.axiosInstance.interceptors.response.use(onFulfilled, onRejected)
   }
 
   interceptorsRequestEject(id: number) {
-    return this.axiosInstance.interceptors.request.eject(id);
+    return this.axiosInstance.interceptors.request.eject(id)
   }
 
   interceptorsResponseEject(id: number) {
-    return this.axiosInstance.interceptors.response.eject(id);
+    return this.axiosInstance.interceptors.response.eject(id)
   }
 }
