@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 const Options: FC<any> = () => {
-  return <div>Options123456</div>
+  return <div>Options</div>
 }
 
 export default Options
