@@ -21,7 +21,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 // TerserPlugin是用于压缩和优化 JavaScript 代码的 Webpack 插件。它使用 Terser（一个 JavaScript 解析器、压缩器、美化器和工具集）来移除未使用的代码、压缩变量名和函数名，以及执行其他优化操作，从而减小打包后的 JavaScript 文件大小
 const TerserPlugin = require('terser-webpack-plugin')
 // 使用Preload或Prefetch预取和预加载资源文件，提高页面首屏速度
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
 // React官方提供的热更新插件
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 //
@@ -220,7 +220,9 @@ module.exports = {
       //Preload只能加载当前页面需要使用的资源，Prefetch可以加载当前页面资源，也可以加载下一个页面需要使用的资源
       //两者都有浏览器兼容性问题,Preload 相对于 Prefetch 兼容性好一点
       rel: 'preload',
-      include: 'initial'
+      include: 'initial',
+      fileWhitelist: [/\.css$/], // 只预加载初始 CSS，不生成 JS preload
+      as: 'style'
     }),
     //单独处理需要预加载的图片资源
     new PreloadWebpackPlugin({

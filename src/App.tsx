@@ -48,15 +48,15 @@ const App: FC = observer(() => {
     import('./fn').then((res) => {
       console.log(res)
     })
-    newRequest.get({ url: '/1' }, { isNeedLoading: true }).then((res) => {
-      console.log('1', res)
-    })
-    newRequest.get({ url: '/2' }, { isNeedLoading: true }).then((res) => {
-      console.log('2', res)
-    })
-    newRequest.get({ url: '/3' }, { isNeedLoading: true }).then((res) => {
-      console.log('3', res)
-    })
+    // newRequest.get({ url: '/1' }, { isNeedLoading: true }).then((res) => {
+    //   console.log('1', res)
+    // })
+    // newRequest.get({ url: '/2' }, { isNeedLoading: true }).then((res) => {
+    //   console.log('2', res)
+    // })
+    // newRequest.get({ url: '/3' }, { isNeedLoading: true }).then((res) => {
+    //   console.log('3', res)
+    // })
   }, [])
 
   return (
